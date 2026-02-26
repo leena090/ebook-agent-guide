@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claude Code 에이전트 완전 정복 | 노모어매뉴얼</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/ebook.css" />
+</head>
+<body>
+
+<!-- 진행률 바 -->
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<!-- 컨트롤 바 -->
+<nav class="controls-bar">
+  <button class="control-btn" id="tocToggle" title="목차">☰ 목차</button>
+  <span class="page-indicator" id="pageIndicator">1 / 12</span>
+  <div class="controls-right">
+    <button class="control-btn" id="fontDecrease" title="글자 줄이기">A−</button>
+    <button class="control-btn" id="fontIncrease" title="글자 키우기">A+</button>
+    <button class="control-btn" id="themeToggle" title="다크모드">◑</button>
+  </div>
+</nav>
+
+<!-- 목차 사이드바 -->
+<aside class="toc-sidebar" id="tocSidebar">
+  <div class="toc-header">
+    <h2>목차</h2>
+    <button class="toc-close" id="tocClose">×</button>
+  </div>
+  <ul class="toc-list">
+    <li><a class="toc-link" data-page="0" href="#">표지</a></li>
+    <li><a class="toc-link" data-page="1" href="#">목차</a></li>
+    <li><a class="toc-link" data-page="2" href="#">Ch1. 에이전트란 무엇인가</a></li>
+    <li><a class="toc-link" data-page="3" href="#">Ch1. Claude Code vs SDK</a></li>
+    <li><a class="toc-link" data-page="4" href="#">Ch2. SDK 에이전트 개념</a></li>
+    <li><a class="toc-link" data-page="5" href="#">Ch2. SDK 에이전트 설정</a></li>
+    <li><a class="toc-link" data-page="6" href="#">Ch3. 서브에이전트 개념</a></li>
+    <li><a class="toc-link" data-page="7" href="#">Ch3. 서브에이전트 설정</a></li>
+    <li><a class="toc-link" data-page="8" href="#">Ch4. Agent Teams 개념</a></li>
+    <li><a class="toc-link" data-page="9" href="#">Ch4. Agent Teams 설정</a></li>
+    <li><a class="toc-link" data-page="10" href="#">Ch5. 비교 정리</a></li>
+    <li><a class="toc-link" data-page="11" href="#">마무리 요약</a></li>
+  </ul>
+</aside>
+<div class="toc-overlay" id="tocOverlay"></div>
+
+<!-- 좌우 네비게이션 버튼 -->
+<button class="nav-btn nav-prev" id="prevBtn">‹</button>
+<button class="nav-btn nav-next" id="nextBtn">›</button>
+
+<!-- ===================== 슬라이드 시작 ===================== -->
+<div class="book-container">
+
+  <!-- ── 슬라이드 1: 표지 ── -->
+  <div class="page page-cover active">
+    <div class="cover-content">
+      <p class="cover-subtitle-top">노모어매뉴얼 수강생 전용 가이드</p>
+      <h1 class="cover-title">
+        Claude Code
+        <span class="cover-title-accent">에이전트 완전 정복</span>
+      </h1>
+      <div class="cover-decoration">
+        <span class="cover-line"></span>
+        <span class="cover-diamond">◆</span>
+        <span class="cover-line"></span>
+      </div>
+      <div class="cover-img-wrapper">
+        <img src="assets/images/cover.png" alt="에이전트 개념 일러스트" class="cover-image" onerror="this.style.display='none'" />
+      </div>
+      <p class="cover-description">
+        SDK 에이전트 · 서브에이전트 · Agent Teams<br />
+        세 가지 개념을 단번에 이해하는 입문 가이드
+      </p>
+      <p class="cover-author">노모어매뉴얼 · 2026</p>
+    </div>
+  </div>
+
+  <!-- ── 슬라이드 2: 목차 ── -->
+  <div class="page">
+    <div class="page-inner">
+      <div class="chapter-header">
+        <span class="chapter-label">Contents</span>
+        <h2 class="chapter-title">이런 내용을 배워요</h2>
+      </div>
+      <ul class="toc-main-list">
+        <li class="toc-item">
+          <a class="toc-page-link" data-page="2" href="#">
+            <span class="toc-chapter-num">01</span>
+            <span class="toc-chapter-info">
+              <span class="toc-chapter-title">에이전트란 무엇인가요?</span>
+              <span class="toc-chapter-desc">AI를 자동으로 움직이게 하는 방법</span>
+            </span>
+            <span class="toc-dots"></span>
+            <span class="toc-page-num">3</span>
+          </a>
+        </li>
+        <li class="toc-item">
+          <a class="toc-page-link" data-page="4" href="#">
+            <span class="toc-chapter-num">02</span>
+            <span class="toc-chapter-info">
+              <span class="toc-chapter-title">SDK 에이전트</span>
+              <span class="toc-chapter-desc">코드로 Claude를 조종하는 기반 기술</span>
+            </span>
+            <span class="toc-dots"></span>
+            <span class="toc-page-num">5</span>
+          </a>
+        </li>
+        <li class="toc-item">
+          <a class="toc-page-link" data-page="6" href="#">
+            <span class="toc-chapter-num">03</span>
+            <span class="toc-chapter-info">
+              <span class="toc-chapter-title">서브에이전트</span>
+              <span class="toc-chapter-desc">Claude가 Claude를 부르는 구조</span>
+            </span>
+            <span class="toc-dots"></span>
+            <span class="toc-page-num">7</span>
+          </a>
+        </li>
+        <li class="toc-item">
+          <a class="toc-page-link" data-page="8" href="#">
+            <span class="toc-chapter-num">04</span>
+            <span class="toc-chapter-info">
+              <span class="toc-chapter-title">Agent Teams</span>
+              <span class="toc-chapter-desc">진짜 병렬 다중 에이전트의 등장</span>
+            </span>
+            <span class="toc-dots"></span>
+            <span class="toc-page-num">9</span>
+          </a>
+        </li>
+        <li class="toc-item">
+          <a class="toc-page-link" data-page="10" href="#">
+            <span class="toc-chapter-num">05</span>
+            <span class="toc-chapter-info">
+              <span class="toc-chapter-title">세 가지 비교 정리</span>
+              <span class="toc-chapter-desc">언제 무엇을 써야 하나요?</span>
+            </span>
+            <span class="toc-dots"></span>
+            <span class="toc-page-num">11</span>
+          </a>
+        </li>
+      </ul>
+      <div class="page-footer">
+        <span>노모어매뉴얼</span>
+        <span>Claude Code 에이전트 완전 정복</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 슬라이드 3: Ch1-A 에이전트 개념 ── -->
+  <div class="page">
+    <div class="page-inner">
+      <div class="chapter-header">
+        <span class="chapter-label">Chapter 01</span>
+        <h2 class="chapter-title">에이전트란 무엇인가요?</h2>
+      </div>
+      <div class="slide-two-col">
+        <div class="slide-col-left">
+          <div class="chapter-image-wrapper">
+            <img src="assets/images/ch1.png" alt="에이전트 개념 일러스트" class="chapter-image" onerror="this.style.display='none'" />
+          </div>
+          <div class="info-box highlight-box">
+            <div class="info-box-header">
+              <span class="info-icon">💡</span>
+              <strong>한 줄 요약</strong>
+            </div>
+            <div class="info-box-body">
+              <p><strong>에이전트 = AI가 혼자서 판단하고 행동하는 것</strong></p>
+            </div>
+          </div>
+        </div>
+        <div class="slide-col-right">
+          <div class="body-text">
+            <h3>일반 챗봇 vs 에이전트</h3>
+            <p>일반 챗봇은 질문하면 답하는 것으로 끝이에요. 하지만 <strong>에이전트</strong>는 다릅니다.</p>
+            <div class="step-box">
+              <div class="step-number">1</div>
+              <div class="step-content"><p><strong>판단</strong> — 지금 뭘 해야 할지 스스로 결정해요</p></div>
+            </div>
+            <div class="step-box">
+              <div class="step-number">2</div>
+              <div class="step-content"><p><strong>행동</strong> — 파일을 읽고, 코드를 고치고, 검색을 해요</p></div>
+            </div>
+            <div class="step-box">
+              <div class="step-number">3</div>
+              <div class="step-content"><p><strong>반복</strong> — 결과를 보고 다음 행동을 또 결정해요</p></div>
+            </div>
+            <div class="styled-quote">
+              <p>Claude Code가 바로 에이전트예요. "버그 찾아서 고쳐줘"라고 하면 파일을 직접 찾아서 수정까지 해주죠.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="page-footer">
+        <span>Ch.01 — 에이전트란?</span><span>3</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 슬라이드 4: Ch1-B Claude Code vs SDK ── -->
+  <div class="page">
+    <div class="page-inner">
+      <div class="chapter-header">
+        <span class="chapter-label">Chapter 01</span>
+        <h2 class="chapter-title">Claude Code vs SDK 에이전트</h2>
+      </div>
+      <div class="body-text" style="max-width:100%">
+        <p>Claude의 에이전트 기능에는 크게 두 가지 사용 방법이 있어요.</p>
+        <div class="command-table">
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Claude Code (CLI)</th>
+                <th>SDK 에이전트</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>실행 방법</strong></td>
+                <td>터미널에서 <code>claude</code> 입력</td>
+                <td>내 코드 안에서 호출</td>
+              </tr>
+              <tr>
+                <td><strong>사용자</strong></td>
+                <td>사람이 직접 대화</td>
+                <td>코드가 자동으로 실행</td>
+              </tr>
+              <tr>
+                <td><strong>용도</strong></td>
+                <td>개발 보조, 일상 작업</td>
+                <td>자동화, 파이프라인, 제품 개발</td>
+              </tr>
+              <tr>
+                <td><strong>비유</strong></td>
+                <td>내가 직접 Claude에게 부탁</td>
+                <td>내 앱이 Claude에게 대신 부탁</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="info-box" style="margin-top:0.8rem">
+          <div class="info-box-header">
+            <span class="info-icon">🎯</span>
+            <strong>핵심 포인트</strong>
+          </div>
+          <div class="info-box-body">
+            <p>Claude Code는 여러분이 <strong>직접 대화하는 도구</strong>고, SDK 에이전트는 여러분의 <strong>프로그램이 Claude를 조종하는 방법</strong>이에요.</p>
+            <p>쉽게 말해: <strong>사람 → Claude</strong> vs <strong>내 코드 → Claude</strong></p>
+          </div>
+        </div>
+      </div>
+      <div class="page-footer">
+        <span>Ch.01 — 에이전트란?</span><span>4</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 슬라이드 5: Ch2-A SDK 에이전트 개념 ── -->
+  <div class="page">
+    <div class="page-inner">
+      <div class="chapter-header">
+        <span class="chapter-label">Chapter 02</span>
+        <h2 class="chapter-title">SDK 에이전트 — 코드로 Claude 조종하기</h2>
+      </div>
+      <div class="slide-two-col">
+        <div class="slide-col-left">
+          <div class="chapter-image-wrapper">
+            <img src="assets/images/ch2.png" alt="SDK 에이전트 일러스트" class="chapter-image" onerror="this.style.display='none'" />
+          </div>
+          <div class="info-box highlight-box">
+            <div class="info-box-header">
+              <span class="info-icon">🔧</span>
+              <strong>SDK란?</strong>
+            </div>
+            <div class="info-box-body">
+              <p>Software Development Kit — 개발자가 서비스를 내 앱에 연결할 때 쓰는 도구 모음이에요.</p>
+            </div>
+          </div>
+        </div>
+        <div class="slide-col-right">
+          <div class="body-text">
+            <h3>SDK 에이전트가 하는 일</h3>
+            <p>내 Python이나 JavaScript 코드 안에서 Claude에게 작업을 맡기고, 그 결과를 받아서 처리할 수 있어요.</p>
+            <div class="workflow-step">
+              <div class="workflow-number">①</div>
+              <div class="workflow-content"><p><strong>내 코드</strong>가 Claude에게 프롬프트 전달</p></div>
+            </div>
+            <div class="workflow-step">
+              <div class="workflow-number">②</div>
+              <div class="workflow-content"><p>Claude가 <strong>파일 읽기, 코드 수정</strong> 등 도구 사용</p></div>
+            </div>
+            <div class="workflow-step">
+              <div class="workflow-number">③</div>
+              <div class="workflow-content"><p>작업 완료 후 <strong>결과를 내 코드에 반환</strong></p></div>
+            </div>
+            <h3 style="margin-top:0.8rem">언제 쓰나요?</h3>
+            <p>매일 밤 자동 코드 리뷰, CI/CD에서 에러 분석, 내 서비스에 AI 기능 넣기 등에 활용해요.</p>
+          </div>
+        </div>
+      </div>
+      <div class="page-footer">
+        <span>Ch.02 — SDK 에이전트</span><span>5</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 슬라이드 6: Ch2-B SDK 에이전트 설정 ── -->
+  <div class="page">
+    <div class="page-inner">
+      <div class="chapter-header">
+        <span class="chapter-label">Chapter 02</span>
+        <h2 class="chapter-title">SDK 에이전트 설치와 설정</h2>
+      </div>
+      <div class="body-text" style="max-width:100%">
+        <p style="margin-bottom:0.4em">SDK 에이전트는 패키지를 설치하고 코드 몇 줄로 시작할 수 있어요.</p>
+        <div class="code-block">
+
+          <pre><code>pip install claude-agent-sdk       <span class="code-comment"># Python</span>
+npm install @anthropic-ai/claude-agent-sdk  <span class="code-comment"># JavaScript</span></code></pre>
+        </div>
+        <div class="code-block" style="margin-top:0.3rem">
+
+          <pre><code>from claude_agent_sdk import query, ClaudeAgentOptions
+
+async for message in query(
+    prompt=<span style="color:#a6e3a1">"서버 로그에서 에러 찾아서 요약해줘"</span>,
+    options=ClaudeAgentOptions(
+        allowed_tools=[<span style="color:#a6e3a1">"Read"</span>, <span style="color:#a6e3a1">"Glob"</span>, <span style="color:#a6e3a1">"Bash"</span>],
+        permission_mode=<span style="color:#a6e3a1">"acceptEdits"</span>,
+    ),
+):
+    print(message)</code></pre>
+        </div>
+        <div class="command-table" style="margin-top:0.3rem">
+          <table>
+            <thead><tr><th>주요 옵션</th><th>설명</th></tr></thead>
+            <tbody>
+              <tr><td><code>allowed_tools</code></td><td>에이전트가 쓸 수 있는 도구 (Read, Edit, Bash 등)</td></tr>
+              <tr><td><code>permission_mode</code></td><td>자동 승인 수준 (acceptEdits / bypassPermissions)</td></tr>
+              <tr><td><code>system_prompt</code></td><td>에이전트의 역할과 성격 정의</td></tr>
+              <tr><td><code>max_turns</code></td><td>최대 반복 횟수 제한</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="page-footer">
+        <span>Ch.02 — SDK 에이전트</span><span>6</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 슬라이드 7: Ch3-A 서브에이전트 개념 ── -->
+  <div class="page">
+    <div class="page-inner" style="padding: 1.2rem 2rem;">
+      <div class="chapter-header" style="margin-bottom:0.6rem">
+        <span class="chapter-label">Chapter 03</span>
+        <h2 class="chapter-title">서브에이전트 — Claude가 Claude를 부른다</h2>
+      </div>
+      <div class="slide-two-col">
+        <div class="slide-col-left">
+          <div class="chapter-image-wrapper" style="max-width:280px; margin-bottom:0.5rem">
+            <img src="assets/images/ch3.png" alt="서브에이전트 일러스트" class="chapter-image" onerror="this.style.display='none'" />
+          </div>
+          <div class="styled-quote">
+            <p>"팀장 Claude가 팀원 Claude에게 부탁하는 구조"</p>
+          </div>
+        </div>
+        <div class="slide-col-right">
+          <div class="body-text">
+            <h3>서브에이전트의 작동 원리</h3>
+            <p>메인 Claude가 복잡한 작업을 만나면, 전문화된 서브에이전트에게 일부를 위임해요. <strong>1개의 컨텍스트 세션 안에서</strong> 일어나는 일이에요.</p>
+            <div class="workflow-step" style="margin:0.3rem 0">
+              <div class="workflow-number">①</div>
+              <div class="workflow-content"><p>메인 Claude가 작업 접수</p></div>
+            </div>
+            <div class="workflow-step" style="margin:0.3rem 0">
+              <div class="workflow-number">②</div>
+              <div class="workflow-content"><p><strong>Task 도구</strong>로 서브에이전트 호출</p></div>
+            </div>
+            <div class="workflow-step" style="margin:0.3rem 0">
+              <div class="workflow-number">③</div>
+              <div class="workflow-content"><p>서브에이전트 작업 완료 → <strong>요약 결과만</strong> 메인에 반환</p></div>
+            </div>
+            <div class="info-box" style="margin-top:0.3rem">
+              <div class="info-box-header">
+                <span class="info-icon">✅</span>
+                <strong>장점</strong>
+              </div>
+              <div class="info-box-body">
+                <p>메인 컨텍스트를 깔끔하게 유지할 수 있어요. 서브에이전트가 탐색하고 메인은 큰 그림만 봐요.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="page-footer">
+        <span>Ch.03 — 서브에이전트</span><span>7</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 슬라이드 8: Ch3-B 서브에이전트 설정 ── -->
+  <div class="page">
+    <div class="page-inner" style="padding: 1.2rem 2rem;">
+      <div class="chapter-header">
+        <span class="chapter-label">Chapter 03</span>
+        <h2 class="chapter-title">서브에이전트 만들고 사용하기</h2>
+      </div>
+      <div class="body-text" style="max-width:100%">
+        <p style="margin-bottom:0.3em">서브에이전트는 마크다운 파일 하나로 정의해요. 설치가 필요 없고 폴더에 파일만 넣으면 돼요.</p>
+        <div class="step-box" style="margin:0.3rem 0">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <p><strong>파일 위치</strong>: <code>.claude/agents/에이전트이름.md</code></p>
+          </div>
+        </div>
+        <div class="code-block" style="margin-top:0.2rem">
+
+          <pre><code>---
+name: code-reviewer
+description: 코드 품질을 검토하는 전문 리뷰어
+tools: Read, Glob, Grep
+---
+당신은 시니어 개발자입니다.
+코드를 꼼꼼히 검토하고 개선점을 알려주세요.</code></pre>
+        </div>
+        <div class="step-box" style="margin:0.3rem 0">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <p><strong>글로벌 등록</strong>: <code>~/.claude/agents/</code>에 저장하면 모든 프로젝트에서 사용 가능</p>
+          </div>
+        </div>
+        <div class="info-box" style="margin-top:0.3rem">
+          <div class="info-box-header">
+            <span class="info-icon">📌</span>
+            <strong>지금 이 대화에서도!</strong>
+          </div>
+          <div class="info-box-body">
+            <p>이 ebook을 만들 때도 서브에이전트를 사용했어요. 메인 Claude가 조사 작업을 claude-code-guide 에이전트에게 위임했답니다.</p>
+          </div>
+        </div>
+      </div>
+      <div class="page-footer">
+        <span>Ch.03 — 서브에이전트</span><span>8</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 슬라이드 9: Ch4-A Agent Teams 개념 ── -->
+  <div class="page">
+    <div class="page-inner">
+      <div class="chapter-header">
+        <span class="chapter-label">Chapter 04</span>
+        <h2 class="chapter-title">Agent Teams — 진짜 다중 에이전트</h2>
+      </div>
+      <div class="slide-two-col">
+        <div class="slide-col-left">
+          <div class="chapter-image-wrapper">
+            <img src="assets/images/ch4.png" alt="Agent Teams 일러스트" class="chapter-image" onerror="this.style.display='none'" />
+          </div>
+          <div class="info-box highlight-box">
+            <div class="info-box-header">
+              <span class="info-icon">🚀</span>
+              <strong>2026년 신기능</strong>
+            </div>
+            <div class="info-box-body">
+              <p>현재 Research Preview (실험 단계)로, 기본적으로 꺼져 있어요.</p>
+            </div>
+          </div>
+        </div>
+        <div class="slide-col-right">
+          <div class="body-text">
+            <h3>서브에이전트와 뭐가 다른가요?</h3>
+            <p>서브에이전트는 <strong>1개 세션</strong> 안에서 순차 실행이에요. Agent Teams는 완전히 달라요.</p>
+            <div class="step-box">
+              <div class="step-number">✦</div>
+              <div class="step-content"><p><strong>각자 독립된 컨텍스트 창</strong> — 팀원마다 자신만의 작업 공간</p></div>
+            </div>
+            <div class="step-box">
+              <div class="step-number">✦</div>
+              <div class="step-content"><p><strong>진짜 병렬 실행</strong> — 팀원 A, B, C가 동시에 작업</p></div>
+            </div>
+            <div class="step-box">
+              <div class="step-number">✦</div>
+              <div class="step-content"><p><strong>팀원끼리 직접 소통</strong> — 팀장 없이도 협업 가능</p></div>
+            </div>
+            <div class="styled-quote" style="margin-top:0.5rem">
+              <p>비유: 서브에이전트는 "혼자 멀티태스킹", Agent Teams는 "진짜 팀 프로젝트"</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="page-footer">
+        <span>Ch.04 — Agent Teams</span><span>9</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 슬라이드 10: Ch4-B Agent Teams 설정 ── -->
+  <div class="page">
+    <div class="page-inner" style="padding: 1.2rem 2rem; line-height: 1.3;">
+      <div class="chapter-header" style="margin-bottom:0.5rem">
+        <span class="chapter-label">Chapter 04</span>
+        <h2 class="chapter-title">Agent Teams 활성화하기</h2>
+      </div>
+      <div class="body-text" style="max-width:100%">
+        <p style="margin-bottom:0.3em">설치가 필요 없어요. <code>settings.json</code>에 한 줄만 추가하면 됩니다.</p>
+        <div class="step-box" style="margin:0.2rem 0">
+          <div class="step-number">1</div>
+          <div class="step-content"><p><strong>설정 파일 열기</strong>: <code>~/.claude/settings.json</code></p></div>
+        </div>
+        <div class="code-block">
+
+          <pre><code>{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": <span style="color:#a6e3a1">"1"</span>
+  }
+}</code></pre>
+        </div>
+        <div class="step-box" style="margin:0.2rem 0">
+          <div class="step-number">2</div>
+          <div class="step-content"><p><strong>다음 세션부터</strong> 적용돼요. 자연어로 요청하면 끝 → <code>이 프로젝트를 팀으로 작업하자 — 프론트엔드 1명, QA 1명</code></p></div>
+        </div>
+        <div class="slide-two-col" style="margin-top:0.3rem; flex:unset;">
+          <div class="slide-col-left">
+            <div class="info-box highlight-box" style="padding:0.4rem 0.8rem">
+              <div class="info-box-header" style="margin-bottom:0.2rem">
+                <span class="info-icon">✅</span>
+                <strong style="font-size:0.8rem">적합한 사용 사례</strong>
+              </div>
+              <div class="info-box-body" style="line-height:1.3">
+                <p style="font-size:0.75rem; margin-bottom:0.15em">• 리서치 + 리뷰를 여러 관점에서 동시 진행</p>
+                <p style="font-size:0.75rem; margin-bottom:0.15em">• 프론트엔드 / 백엔드 / 테스트를 각각 맡겨서 병렬 개발</p>
+                <p style="font-size:0.75rem; margin-bottom:0">• 디버깅 시 여러 가설을 동시에 검증</p>
+              </div>
+            </div>
+          </div>
+          <div class="slide-col-right">
+            <div class="warning-box" style="padding:0.4rem 0.7rem">
+              <span class="warning-icon" style="font-size:0.9rem">⚠️</span>
+              <div class="warning-content" style="font-size:0.75rem; line-height:1.3">
+                <strong style="font-size:0.8rem">주요 제한사항</strong>
+                <p style="margin-bottom:0.15em; font-size:0.75rem"><strong>실험적</strong> — 세션 재개 불안정, 태스크 상태 지연 가능</p>
+                <p style="margin-bottom:0.15em; font-size:0.75rem">세션당 1팀만 가능, 팀원이 또 팀을 만들 수 없음</p>
+                <p style="margin-bottom:0.15em; font-size:0.75rem"><strong>토큰 비용이 팀원 수만큼 배로 증가</strong> (각자 독립 컨텍스트)</p>
+                <p style="margin-bottom:0; font-size:0.75rem">Split pane은 tmux/iTerm2 필요 (Windows는 in-process 모드)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="page-footer">
+        <span>Ch.04 — Agent Teams</span><span>10</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 슬라이드 11: Ch5 비교 정리 ── -->
+  <div class="page">
+    <div class="page-inner" style="padding: 1.2rem 2rem;">
+      <div class="chapter-header" style="margin-bottom:0.5rem">
+        <span class="chapter-label">Chapter 05</span>
+        <h2 class="chapter-title">세 가지를 한눈에 비교해요</h2>
+      </div>
+      <div class="body-text" style="max-width:100%">
+        <div class="command-table">
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>SDK 에이전트</th>
+                <th>서브에이전트</th>
+                <th>Agent Teams</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>누가 쓰나</strong></td>
+                <td>개발자 (코드로)</td>
+                <td>Claude 내부</td>
+                <td>Claude 내부</td>
+              </tr>
+              <tr>
+                <td><strong>세션 수</strong></td>
+                <td>1개</td>
+                <td>1개</td>
+                <td>여러 개</td>
+              </tr>
+              <tr>
+                <td><strong>실행 방식</strong></td>
+                <td>코드 제어</td>
+                <td>순차 위임</td>
+                <td>진짜 병렬</td>
+              </tr>
+              <tr>
+                <td><strong>설정 방법</strong></td>
+                <td>pip/npm 설치</td>
+                <td>.md 파일 생성</td>
+                <td>settings.json 1줄</td>
+              </tr>
+              <tr>
+                <td><strong>상태</strong></td>
+                <td>정식 출시</td>
+                <td>정식 출시</td>
+                <td>실험 단계</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="info-box highlight-box" style="margin-top:0.4rem">
+          <div class="info-box-header">
+            <span class="info-icon">🎯</span>
+            <strong>언제 무엇을 쓸까요?</strong>
+          </div>
+          <div class="info-box-body">
+            <p>내 앱에 AI 기능 추가 → <strong>SDK 에이전트</strong></p>
+            <p>특정 작업 전문가에게 위임 → <strong>서브에이전트</strong></p>
+            <p>대규모 프로젝트 병렬 처리 → <strong>Agent Teams</strong></p>
+          </div>
+        </div>
+      </div>
+      <div class="page-footer">
+        <span>Ch.05 — 비교 정리</span><span>11</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 슬라이드 12: 마무리 ── -->
+  <div class="page">
+    <div class="page-inner">
+      <div class="chapter-header">
+        <span class="chapter-label">Summary</span>
+        <h2 class="chapter-title">오늘 배운 것을 정리해요</h2>
+      </div>
+      <div class="body-text" style="max-width:100%">
+        <div class="step-box">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <p><strong>에이전트</strong> = AI가 스스로 판단하고 행동하는 것. Claude Code가 대표적인 예예요.</p>
+          </div>
+        </div>
+        <div class="step-box">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <p><strong>SDK 에이전트</strong> = 내 코드로 Claude를 자동 조종하는 기반 기술. pip/npm으로 설치해요.</p>
+          </div>
+        </div>
+        <div class="step-box">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <p><strong>서브에이전트</strong> = Claude 안에서 전문 역할을 위임하는 구조. .md 파일 하나로 만들어요.</p>
+          </div>
+        </div>
+        <div class="step-box">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <p><strong>Agent Teams</strong> = 여러 Claude가 독립 세션에서 병렬 협업. settings.json 한 줄로 활성화해요.</p>
+          </div>
+        </div>
+        <div class="slide-two-col" style="margin-top:0.6rem; flex:unset;">
+          <div class="slide-col-left">
+            <div class="info-box highlight-box">
+              <div class="info-box-header">
+                <span class="info-icon">🌱</span>
+                <strong>다음 단계</strong>
+              </div>
+              <div class="info-box-body">
+                <p>서브에이전트부터 시작하세요. <code>.claude/agents/</code> 폴더에 .md 파일 하나 만들고 바로 활용할 수 있어요!</p>
+              </div>
+            </div>
+          </div>
+          <div class="slide-col-right">
+            <div class="warning-box">
+              <span class="warning-icon">💸</span>
+              <div class="warning-content">
+                <strong>Agent Teams 쓸 때 주의</strong>
+                <p>팀원 수만큼 토큰 비용이 늘어요. 작은 작업은 서브에이전트가 더 경제적이에요.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ending-decoration">
+        <span>◆ ◆ ◆</span>
+        <p class="ending-text">이 자료가 도움이 되셨나요?</p>
+        <p class="ending-author">노모어매뉴얼과 함께 AI를 더 쉽게</p>
+      </div>
+      <div class="page-footer">
+        <span>노모어매뉴얼</span><span>12</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /book-container -->
+
+<script src="js/ebook.js"></script>
+</body>
+</html>
