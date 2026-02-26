@@ -310,21 +310,19 @@
 
   <!-- ── 슬라이드 6: Ch2-B SDK 에이전트 설정 ── -->
   <div class="page">
-    <div class="page-inner">
-      <div class="chapter-header">
+    <div class="page-inner" style="padding: 1.2rem 2rem;">
+      <div class="chapter-header" style="margin-bottom:0.6rem">
         <span class="chapter-label">Chapter 02</span>
         <h2 class="chapter-title">SDK 에이전트 설치와 설정</h2>
       </div>
-      <div class="body-text" style="max-width:100%">
-        <p style="margin-bottom:0.4em">SDK 에이전트는 패키지를 설치하고 코드 몇 줄로 시작할 수 있어요.</p>
-        <div class="code-block">
-
-          <pre><code>pip install claude-agent-sdk       <span class="code-comment"># Python</span>
-npm install @anthropic-ai/claude-agent-sdk  <span class="code-comment"># JavaScript</span></code></pre>
-        </div>
-        <div class="code-block" style="margin-top:0.3rem">
-
-          <pre><code>from claude_agent_sdk import query, ClaudeAgentOptions
+      <div class="slide-two-col">
+        <div class="slide-col-left">
+          <div class="code-block">
+            <pre><code>pip install claude-agent-sdk       <span class="code-comment"># Python</span>
+npm install @anthropic-ai/claude-agent-sdk  <span class="code-comment"># JS</span></code></pre>
+          </div>
+          <div class="code-block" style="margin-top:0.4rem">
+            <pre><code>from claude_agent_sdk import query, ClaudeAgentOptions
 
 async for message in query(
     prompt=<span style="color:#a6e3a1">"서버 로그에서 에러 찾아서 요약해줘"</span>,
@@ -334,17 +332,29 @@ async for message in query(
     ),
 ):
     print(message)</code></pre>
+          </div>
         </div>
-        <div class="command-table" style="margin-top:0.3rem">
-          <table>
-            <thead><tr><th>주요 옵션</th><th>설명</th></tr></thead>
-            <tbody>
-              <tr><td><code>allowed_tools</code></td><td>에이전트가 쓸 수 있는 도구 (Read, Edit, Bash 등)</td></tr>
-              <tr><td><code>permission_mode</code></td><td>자동 승인 수준 (acceptEdits / bypassPermissions)</td></tr>
-              <tr><td><code>system_prompt</code></td><td>에이전트의 역할과 성격 정의</td></tr>
-              <tr><td><code>max_turns</code></td><td>최대 반복 횟수 제한</td></tr>
-            </tbody>
-          </table>
+        <div class="slide-col-right">
+          <div class="command-table">
+            <table>
+              <thead><tr><th>주요 옵션</th><th>설명</th></tr></thead>
+              <tbody>
+                <tr><td><code>allowed_tools</code></td><td>사용 가능한 도구 (Read, Edit, Bash 등)</td></tr>
+                <tr><td><code>permission_mode</code></td><td>자동 승인 수준 (acceptEdits / bypassPermissions)</td></tr>
+                <tr><td><code>system_prompt</code></td><td>에이전트의 역할과 성격 정의</td></tr>
+                <tr><td><code>max_turns</code></td><td>최대 반복 횟수 제한</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="info-box highlight-box" style="margin-top:0.6rem">
+            <div class="info-box-header">
+              <span class="info-icon">💡</span>
+              <strong>핵심 흐름</strong>
+            </div>
+            <div class="info-box-body">
+              <p>설치 → 프롬프트 작성 → 도구 권한 설정 → 실행</p>
+            </div>
+          </div>
         </div>
       </div>
       <div class="page-footer">
